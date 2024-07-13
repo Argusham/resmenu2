@@ -1,12 +1,13 @@
 import { Router, Request, Response } from 'express';
-import prisma from '../prisma/client';
-import { authenticateJWT } from '../middleware/auth';
+import { PrismaClient } from '@prisma/client'; // Import the PrismaClient
+import { authenticateJWT } from '../middleware/authMiddleware';
 
 interface AuthRequest extends Request {
   user?: any;
 }
 
 const router = Router();
+const prisma = new PrismaClient(); // Create an instance of PrismaClient
 
 // Get all menu items
 router.get('/', authenticateJWT, async (req: AuthRequest, res: Response) => {
